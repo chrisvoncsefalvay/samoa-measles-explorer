@@ -20,17 +20,28 @@ def plot_mortality_morbidity(data: pd.DataFrame) -> dcc.Graph:
     dt = data.groupby(["date", "status"]).sum().reset_index()
     dates = list(dt["date"].unique())
     fig = make_subplots(specs=[[{"secondary_y": True}]])
+    cfr = data[data["status"] == "deaths"].groupby("date").sum()/data[data["status"] == "cases"].groupby("date").sum()
 
     # Case trace
     fig.add_trace(go.Bar(name="Cases",
                          x=dates,
-                         y=dt[dt["status"] == "cases"]["value"]),
+                         y=dt[dt["status"] == "cases"]["value"],
+                         text=100*cfr,
+                         hovertemplate="%{x}<br>"
+                                       "<b>%{y} cases<br>"
+                                       "CFR: %{text:.2f}</b>",
+                         texttemplate="           CFR: %{text:.2f}%",
+                         textposition="inside"),
                   secondary_y=False)
 
     fig.update_traces(marker_color=MARKER_BLUE)
 
     # Mortality line
-    fig.add_trace(go.Scatter(name="Deaths", x=dates, y=dt[dt["status"] == "deaths"]["value"]),
+    fig.add_trace(go.Scatter(name="Deaths",
+                             x=dates,
+                             y=dt[dt["status"] == "deaths"]["value"],
+                             hovertemplate="%{x}<br>"
+                                           "<b>%{y} deaths</b>"),
                   secondary_y=True)
 
     fig.update_xaxes(tickangle=45,

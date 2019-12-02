@@ -9,6 +9,12 @@ TICK_VALUES = ["0-5m", "6-11m", "1-4y", "5-9y", "10-14y", "15-19y", "20-29y", "3
 MARKER_RED = "rgb(224, 46, 28)"
 MARKER_BLUE = "rgb(43, 71, 100)"
 
+TITLE_LAYOUT = dict(
+        family="Helvetica Neue",
+        size=23,
+        color=MARKER_BLUE
+    )
+
 def plot_mortality_morbidity(data: pd.DataFrame) -> dcc.Graph:
     dt = data.groupby(["date", "status"]).sum().reset_index()
     dates = list(dt["date"].unique())
@@ -26,6 +32,15 @@ def plot_mortality_morbidity(data: pd.DataFrame) -> dcc.Graph:
     fig.add_trace(go.Scatter(name="Deaths", x=dates, y=dt[dt["status"] == "deaths"]["value"]),
                   secondary_y=True)
 
+    fig.update_xaxes(tickangle=45,
+                     tickformat="%a %d-%m-%Y",
+                     automargin=True)
+
+    fig.update_layout(title_text=f"<b>Mortality and morbidity from measles</b><br>"
+                                 f"<span style='font-size: 12;'>{data.date.max()} | samoa-measl.es</span>",
+                      height=600)
+
+    fig["layout"]["titlefont"].update(**TITLE_LAYOUT)
 
     return dcc.Graph(figure=fig)
 
@@ -43,17 +58,21 @@ def plot_by_age_group(data: pd.DataFrame) -> dcc.Graph:
                          name="Cases",
                          marker_color=MARKER_BLUE))
 
-    fig.update_layout(barmode="relative")
-    fig.update_layout(yaxis_type="log")
-
     fig.update_xaxes(
         ticktext=["<5m", "6-11m", "1-4y", "5-9y", "10-14y", "15-19y", "20-29y", "30-39y", "40-49y", ">50y", "missing"],
-        tickvals=TICK_VALUES
+        tickvals=TICK_VALUES,
+        tickangle=45,
+        automargin=True
     )
 
-    fig.update_layout(xaxis=dict(categoryorder="array",
+    fig.update_layout(barmode="relative",
+                      yaxis_type="log",
+                      title_text=f"<b>Age distribution of cases</b><br>"
+                                 f"<span style='font-size: 12;'>{data.date.max()} | samoa-measl.es</span>",
+                      xaxis=dict(categoryorder="array",
                                  categoryarray=["0-5m", "6-11m", "1-4y", "5-9y", "10-14y", "15-19y", "20-29y", "30-39y",
-                                                "40-49y", "50y-above", "missing"]))
+                                                "40-49y", "50y-above", "missing"]),
+                      height=600)
 
     return dcc.Graph(figure=fig)
 
@@ -86,7 +105,7 @@ def plot_cfr(data: pd.DataFrame) -> dcc.Graph:
     fig.add_annotation(go.layout.Annotation(
         x=TICK_VALUES[-2],
         y=mean_cfr + 0.002,
-        text=f"Mean CFR: {100*mean_cfr:.2f}%",
+        text=f"Mean CFR: {100 * mean_cfr:.2f}%",
         showarrow=False,
         ax=30,
         ay=0
@@ -94,15 +113,20 @@ def plot_cfr(data: pd.DataFrame) -> dcc.Graph:
 
     fig.update_xaxes(
         ticktext=["<5m", "6-11m", "1-4y", "5-9y", "10-14y", "15-19y", "20-29y", "30-39y", "40-49y", ">50y", "missing"],
-        tickvals=TICK_VALUES
+        tickvals=TICK_VALUES,
+        tickangle=45,
+        automargin=True
     )
 
-    fig.update_yaxes(tickformat=".2%")
-
-    fig.update_layout(xaxis_tickformat='%d %B (%a)<br>%Y', )
+    fig.update_yaxes(tickformat=".2%",
+                     tick0=0.0,
+                     dtick=0.005)
 
     fig.update_layout(xaxis=dict(categoryorder="array",
                                  categoryarray=["0-5m", "6-11m", "1-4y", "5-9y", "10-14y", "15-19y", "20-29y", "30-39y",
-                                                "40-49y", "50y-above", "missing"]))
+                                                "40-49y", "50y-above", "missing"]),
+                      title_text=f"<b>Case-fatality statistics by age</b><br>"
+                                 f"<span style='font-size: 12;'>{data.date.max()} | samoa-measl.es</span>",
+                      height=600)
 
     return dcc.Graph(figure=fig)

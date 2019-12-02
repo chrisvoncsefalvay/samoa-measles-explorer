@@ -1,5 +1,10 @@
 import dash_html_components as html
 
+def get_current_version() -> str:
+    with open("VERSION") as f:
+        v = f.readline().replace("\n", "")
+    return v
+
 def get_sidecart(context: str = "mortality") -> list:
     sidecart_texts = {
         "mortality": "This plot shows morbidity (number of cases) and mortality (number of deaths) from measles "
@@ -36,7 +41,8 @@ def get_sidecart(context: str = "mortality") -> list:
                     html.Img(src="https://zenodo.org/badge/225143525.svg")
                 ], href="https://zenodo.org/badge/latestdoi/225143525")]),
         html.Hr(),
-        html.P(["(c)", " ", html.A("Chris von Csefalvay", href="https://chrisvoncsefalvay.com"), " ", "2019."])
+        html.P(["(c)", " ", html.A("Chris von Csefalvay", href="https://chrisvoncsefalvay.com"), " ", "2019."]),
+        html.P(["App version: ", get_current_version()])
     ]
 
     return [sidecart_texts[context]] + sidecart_help + sidecart_data_source

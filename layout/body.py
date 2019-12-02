@@ -3,10 +3,6 @@ import dash_html_components as html
 from layout.sidecart_texts import get_sidecart
 
 
-# Column titles
-
-graph_area_title: html.H2 = html.H2("Mortality & morbidity", id="graph-area-title")
-
 # Column contents
 
 sidecart_contents: list = get_sidecart(context="mortality")
@@ -17,8 +13,7 @@ plot_object: html.Div = html.Div([], id="plot-object")
 
 # Column components
 
-graph_area: dbc.Col = dbc.Col(children=[graph_area_title,
-                                        plot_object],
+graph_area: dbc.Col = dbc.Col(children=[plot_object],
                               className="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12",
                               id="graph-area-contents")
 

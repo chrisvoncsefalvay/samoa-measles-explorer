@@ -47,22 +47,21 @@ app.layout = html.Div([location, navbar, body])
 
 @app.callback([dash.dependencies.Output("sidecart-contents", "children"),
                dash.dependencies.Output("plot-object", "children"),
-               dash.dependencies.Output("graph-area-title", "children"),
                dash.dependencies.Output("last-update", "children")],
               [dash.dependencies.Input("url", "pathname")])
-def display_page(pathname: str) -> Tuple[list, List[dcc.Graph], List[str], Any]:
+def display_page(pathname: str) -> Tuple[list, List[dcc.Graph], str]:
     data = get_data()
     last_update = str(data["date"].unique().max()) + " UTC"
     if pathname == "/" or pathname == "/mortality-morbidity":
-        return get_sidecart(context="mortality"), [plot_mortality_morbidity(data)], ["Mortality & morbidity"], last_update
+        return get_sidecart(context="mortality"), [plot_mortality_morbidity(data)], last_update
     elif pathname == "/by-age-group":
-        return get_sidecart(context="age_group"), [plot_by_age_group(data)], ["By age group"], last_update
+        return get_sidecart(context="age_group"), [plot_by_age_group(data)], last_update
     elif pathname == "/cfr":
-        return get_sidecart(context="cfr"), [plot_cfr(data)], ["Case-fatality data"], last_update
+        return get_sidecart(context="cfr"), [plot_cfr(data)], last_update
     elif pathname == "/about":
-        return get_sidecart(context="mortality"), [plot_mortality_morbidity(data)], ["About"], last_update
+        return get_sidecart(context="mortality"), [plot_mortality_morbidity(data)], last_update
     else:
-        return get_sidecart(context="mortality"), [plot_mortality_morbidity(data)], ["Mortality & morbidity"], last_update
+        return get_sidecart(context="mortality"), [plot_mortality_morbidity(data)], last_update
 
 
 if __name__ == '__main__':

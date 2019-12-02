@@ -10,10 +10,11 @@ MARKER_RED = "rgb(224, 46, 28)"
 MARKER_BLUE = "rgb(43, 71, 100)"
 
 TITLE_LAYOUT = dict(
-        family="Helvetica Neue",
-        size=23,
-        color=MARKER_BLUE
-    )
+    family="Helvetica Neue",
+    size=23,
+    color=MARKER_BLUE
+)
+
 
 def plot_mortality_morbidity(data: pd.DataFrame) -> dcc.Graph:
     dt = data.groupby(["date", "status"]).sum().reset_index()
@@ -39,6 +40,11 @@ def plot_mortality_morbidity(data: pd.DataFrame) -> dcc.Graph:
     fig.update_layout(title_text=f"<b>Mortality and morbidity from measles</b><br>"
                                  f"<span style='font-size: 12;'>{data.date.max()} | samoa-measl.es</span>",
                       height=600)
+
+    fig.update_yaxes(range=[0, 1.05 * data[data["status"] == "cases"].groupby("date").sum()["value"].max()],
+                     secondary_y=False)
+    fig.update_yaxes(range=[0, 1.05 * data[data["status"] == "deaths"].groupby("date").sum()["value"].max()],
+                     secondary_y=True)
 
     fig["layout"]["titlefont"].update(**TITLE_LAYOUT)
 

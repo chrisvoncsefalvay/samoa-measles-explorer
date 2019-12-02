@@ -29,7 +29,7 @@ cache = Cache(app.server, config={
 
 
 # Loader
-@cache.memoize(timeout=600)
+@cache.memoize(timeout=1800)
 def get_data() -> pd.DataFrame:
     data_url = "https://raw.githubusercontent.com/chrisvoncsefalvay/samoa-measles-2019/master/data/cumulative_data.csv"
     data = pd.read_csv(data_url,

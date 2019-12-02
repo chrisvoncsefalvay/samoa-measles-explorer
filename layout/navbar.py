@@ -7,7 +7,7 @@ navbar = dbc.NavbarSimple(
         dbc.NavItem(dbc.NavLink("CFR", href="/cfr"))
         # dbc.NavItem(dbc.NavLink("About", href="/about")),
     ],
-    brand="Samoa Measles Crisis 🇼🇸",
+    brand="Measles Outbreak Explorer (Moe) 🇼🇸",
     brand_href="/",
     sticky="top",
 )

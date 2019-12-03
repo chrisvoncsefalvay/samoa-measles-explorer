@@ -27,4 +27,7 @@ phases:
       - echo Pushing the Docker images...
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - printf '[{"name":"samoa-measles","imageUri":"998074641603.dkr.ecr.us-west-2.amazonaws.com/samoa-measles:latest"}]' > imagedefinitions.json
+artifacts:
+  files: imagedefinitions.json
 

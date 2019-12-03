@@ -7,9 +7,9 @@ def get_current_version() -> str:
 
 def get_sidecart(context: str = "mortality") -> list:
     sidecart_texts = {
-        "mortality": "This plot shows morbidity (number of cases) and mortality (number of deaths) from measles "
-                     "associated infections.",
-        "age_group": "This plot shows mortality and morbidity by age group.",
+        "mortality": "This plot shows cumulative morbidity (number of cases) and mortality (number of deaths) from "
+                     "measles associated causes.",
+        "age_group": "This plot shows morbidity (number of cases) and mortality (number of deaths) by age group.",
         "cfr": "CFR, or case-fatality ratio, shows the relative mortality in relation to morbidity – in other words, "
                "how many patients afflicted succumb to the disease in the short term."
     }

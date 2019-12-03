@@ -1,5 +1,4 @@
 from typing import Tuple, List, Any
-
 import flask
 import pandas as pd
 import dash
@@ -18,6 +17,8 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.FLATLY], server=serve
 
 app.scripts.config.serve_locally = True
 app.css.config.serve_locally = True
+
+app.title = "Measles Outbreak Explorer (Moe)"
 
 # Cache
 

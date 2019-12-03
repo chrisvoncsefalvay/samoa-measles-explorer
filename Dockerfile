@@ -1,4 +1,4 @@
-FROM 998074641603.dkr.ecr.us-west-2.amazonaws.com/base-image
+FROM ubuntu:18.10
 
 LABEL maintainer="Chris von Csefalvay <chris@chrisvoncsefalvay.com>"
 

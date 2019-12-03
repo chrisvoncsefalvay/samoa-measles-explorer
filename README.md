@@ -1,5 +1,7 @@
 # Measles Outbreak Explorer
 
+![Build status](https://codebuild.us-west-2.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiemdQb3hEMmF6RFpuYmNsMTZyT1BCaUhLa0hGeXZuanIwdEIyZFREd2F5NjVxV0tTRU13WHBVYVRsNjVMRWg2eWlxNjFGUEI5RkJDMzQySmhEd1F5SXdRPSIsIml2UGFyYW1ldGVyU3BlYyI6Ik1BM1JNSkVBVmE2MW1NbTMiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)
+
 MOE (the Measles Outbreak Explorer) is a Dash application to explore the Samoa measles outbreak 🇼🇸. Currently, it's [deployed on `samoa-measl.es`](http://samoa-measl.es).
 
 ## Who is behind this?

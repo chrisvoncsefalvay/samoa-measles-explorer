@@ -64,16 +64,17 @@ def plot_mortality_morbidity(data: pd.DataFrame) -> dcc.Graph:
 
 def plot_by_age_group(data: pd.DataFrame) -> dcc.Graph:
     fig = go.Figure()
-    dt = data.groupby(["age_group", "status"]).sum().reset_index()
+    max_date = data["date"].max()
+    dt = data[data["date"] == max_date].reset_index()
 
-    fig.add_trace(go.Bar(x=dt[dt["status"] == "deaths"]["age_group"],
-                         y=dt[dt["status"] == "deaths"]["value"],
-                         name="Deaths",
-                         marker_color=MARKER_RED))
     fig.add_trace(go.Bar(x=dt[dt["status"] == "cases"]["age_group"],
                          y=dt[dt["status"] == "cases"]["value"],
                          name="Cases",
                          marker_color=MARKER_BLUE))
+    fig.add_trace(go.Bar(x=dt[dt["status"] == "deaths"]["age_group"],
+                         y=dt[dt["status"] == "deaths"]["value"],
+                         name="Deaths",
+                         marker_color=MARKER_RED))
 
     fig.update_xaxes(
         ticktext=["<5m", "6-11m", "1-4y", "5-9y", "10-14y", "15-19y", "20-29y", "30-39y", "40-49y", ">50y", "missing"],
@@ -82,8 +83,7 @@ def plot_by_age_group(data: pd.DataFrame) -> dcc.Graph:
         automargin=True
     )
 
-    fig.update_layout(barmode="relative",
-                      yaxis_type="log",
+    fig.update_layout(yaxis_type="log",
                       title_text=f"<b>Age distribution of cases</b><br>"
                                  f"<span style='font-size: 12;'>{data.date.max()} | samoa-measl.es</span>",
                       xaxis=dict(categoryorder="array",

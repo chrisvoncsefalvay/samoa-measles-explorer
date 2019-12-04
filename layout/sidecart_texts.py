@@ -28,7 +28,9 @@ def get_sidecart(context: str = "mortality") -> list:
                 html.A("UNICEF NZ",
                        href="https://www.unicef.org.nz/appeal/samoa-measles-emergency",
                        target="_blank"), " "
-                "is also running an emergency appeal for the measles crisis in Samoa."])
+                "is also running an emergency appeal for the measles crisis in Samoa.", " ",
+                "Furthermore, a private fundraiser by ", html.A("@MsTrixter", href="https://twitter.com/MsTrixter"), " ",
+                "has also been set up on", html.A("GoFundMe", href="https://www.gofundme.com/f/samoa-measles-outbreak"), "."])
     ]
 
     sidecart_data_source: list = [

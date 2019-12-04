@@ -91,6 +91,8 @@ def plot_by_age_group(data: pd.DataFrame) -> dcc.Graph:
                                                 "40-49y", "50y-above", "missing"]),
                       height=600)
 
+    fig["layout"]["titlefont"].update(**TITLE_LAYOUT)
+
     return dcc.Graph(figure=fig)
 
 
@@ -145,5 +147,7 @@ def plot_cfr(data: pd.DataFrame) -> dcc.Graph:
                       title_text=f"<b>Case-fatality statistics by age</b><br>"
                                  f"<span style='font-size: 12;'>{data.date.max()} | samoa-measl.es</span>",
                       height=600)
+
+    fig["layout"]["titlefont"].update(**TITLE_LAYOUT)
 
     return dcc.Graph(figure=fig)

@@ -10,10 +10,36 @@ from layout import body, navbar
 from layout.plot import plot_mortality_morbidity, plot_by_age_group, plot_cfr
 from layout.sidecart_texts import get_sidecart
 
-
 # App
 server = flask.Flask(__name__)
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.FLATLY], server=server)
+app = dash.Dash(__name__,
+                external_stylesheets=[dbc.themes.FLATLY],
+                server=server,
+                meta_tags=[
+                    {"name": "description",
+                     "content": "Exploring the human impact of the measles outbreak in Samoa."},
+                    {"name": "viewport",
+                     "content": "width=device-width, initial-scale=1.0"},
+                    {"name": "og:title",
+                     "content": "Moe: the Measles Outbreak Explorer"},
+                    {"name": "og:type",
+                     "content": "website"},
+                    {"name": "og:url",
+                     "content": "http://samoa-measl.es/"},
+                    {"name": "og:description",
+                     "content": "Exploring the human impact of the measles outbreak in Samoa."},
+                    {"name": "og:locale",
+                     "content": "en_US"},
+                    {"name": "og:site_name",
+                     "content": "Moe – The Measles Outbreak Explorer"},
+                    {"name": "og:image",
+                     "content": "http://samoa-measl.es/assets/og_img.jpg"},
+                    {"name": "og:image:type",
+                     "content": "image/jpeg"},
+                    {"name": "og:image:width",
+                     "content": "400"},
+                    {"name": "og:image:height",
+                     "content": "300"}])
 
 app.scripts.config.serve_locally = True
 app.css.config.serve_locally = True
@@ -43,6 +69,7 @@ def get_data() -> pd.DataFrame:
 location = dcc.Location(id="url", refresh=True)
 
 app.layout = html.Div([location, navbar, body])
+
 
 @cache.memoize(600)
 @app.callback([dash.dependencies.Output("sidecart-contents", "children"),

@@ -15,18 +15,21 @@ TITLE_LAYOUT = dict(
     color=MARKER_BLUE
 )
 
+PLOT_RESOLUTION = dict(width=1600,
+                       height=768)
+
 
 def plot_mortality_morbidity(data: pd.DataFrame) -> dcc.Graph:
     dt = data.groupby(["date", "status"]).sum().reset_index()
     dates = list(dt["date"].unique())
     fig = make_subplots(specs=[[{"secondary_y": True}]])
-    cfr = data[data["status"] == "deaths"].groupby("date").sum()/data[data["status"] == "cases"].groupby("date").sum()
+    cfr = data[data["status"] == "deaths"].groupby("date").sum() / data[data["status"] == "cases"].groupby("date").sum()
 
     # Case trace
     fig.add_trace(go.Bar(name="Cases",
                          x=dates,
                          y=dt[dt["status"] == "cases"]["value"],
-                         text=100*cfr,
+                         text=100 * cfr,
                          hovertemplate="%{x}<br>"
                                        "<b>%{y} cases<br>"
                                        "CFR: %{text:.2f}</b>",
@@ -59,7 +62,9 @@ def plot_mortality_morbidity(data: pd.DataFrame) -> dcc.Graph:
 
     fig["layout"]["titlefont"].update(**TITLE_LAYOUT)
 
-    return dcc.Graph(figure=fig)
+    return dcc.Graph(figure=fig,
+                     config={"toImageButtonOptions": PLOT_RESOLUTION,
+                             "displaylogo": False})
 
 
 def plot_by_age_group(data: pd.DataFrame) -> dcc.Graph:
@@ -93,7 +98,9 @@ def plot_by_age_group(data: pd.DataFrame) -> dcc.Graph:
 
     fig["layout"]["titlefont"].update(**TITLE_LAYOUT)
 
-    return dcc.Graph(figure=fig)
+    return dcc.Graph(figure=fig,
+                     config={"toImageButtonOptions": PLOT_RESOLUTION,
+                             "displaylogo": False})
 
 
 def plot_cfr(data: pd.DataFrame) -> dcc.Graph:
@@ -150,4 +157,6 @@ def plot_cfr(data: pd.DataFrame) -> dcc.Graph:
 
     fig["layout"]["titlefont"].update(**TITLE_LAYOUT)
 
-    return dcc.Graph(figure=fig)
+    return dcc.Graph(figure=fig,
+                     config={"toImageButtonOptions": PLOT_RESOLUTION,
+                             "displaylogo": False})

@@ -6,7 +6,7 @@ MOE (the Measles Outbreak Explorer) is a Dash application to explore the Samoa m
 
 ## Who is behind this?
 
-[Dr Chris von Csefalvay](https://bitsandbugs.io/about) is a clinical computational epidemiologist and data scientist based in Arlington, VA. You can get in touch with him [here](https://bitsandbugs.io/talkback/).
+[Chris von Csefalvay](https://bitsandbugs.io/about) is a clinical computational epidemiologist and data scientist based in Arlington, VA. You can get in touch with him [here](https://bitsandbugs.io/talkback/).
 
 ## License
 
